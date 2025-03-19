@@ -18,6 +18,12 @@ export default function TimerChallenge({ title, targetTime }) {
     }, 10);
   }
 
+  /*************  ✨ Codeium Command ⭐  *************/
+  /**
+   * Resets the remaining time to the initial target time in milliseconds.
+   */
+
+  /******  5b12646b-d9d4-430c-b151-d347865cb119  *******/
   function handleReset() {
     setTimeRemaining(targetTime * 1000);
   }
