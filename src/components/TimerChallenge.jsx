@@ -4,29 +4,23 @@ import ResultModal from "./ResultModal";
 export default function TimerChallenge({ title, targetTime }) {
   const dialog = useRef();
   const timer = useRef();
-  const [timeRemaining, setTimeRemaining] = useState(targetTime * 1000);
+  const [ timeRemaining, setTimeRemaining ] = useState(targetTime * 1000);
   const timerIsActive = timeRemaining > 0 && timeRemaining < targetTime * 1000;
-
-  if (timeRemaining <= 0) {
+  
+  if(timeRemaining <= 0) {
     clearInterval(timer.current);
+    setTimeRemaining(targetTime * 1000);
     dialog.current.open();
   }
-
+  
   function handleStart() {
     timer.current = setInterval(() => {
-      setTimeRemaining((prevTimeRemaining) => prevTimeRemaining - 10);
+      setTimeRemaining ( prevTimeRemaining => prevTimeRemaining - 10);
     }, 10);
   }
 
-  /*************  ✨ Codeium Command ⭐  *************/
-  /**
-   * Resets the remaining time to the initial target time in milliseconds.
-   */
+  
 
-  /******  5b12646b-d9d4-430c-b151-d347865cb119  *******/
-  function handleReset() {
-    setTimeRemaining(targetTime * 1000);
-  }
   function handleStop() {
     dialog.current.open();
     clearInterval(timer.current);
@@ -34,12 +28,7 @@ export default function TimerChallenge({ title, targetTime }) {
 
   return (
     <>
-      <ResultModal
-        targetTime={targetTime}
-        ref={dialog}
-        remainingTime={timeRemaining}
-        onReset={handleReset}
-      />
+      <ResultModal targetTime={targetTime} ref={dialog} result="lost" />
       <section className="challenge">
         <h2>{title}</h2>
         {/* {timerIsActive && <p>You lost!</p>} */}
@@ -48,7 +37,8 @@ export default function TimerChallenge({ title, targetTime }) {
         </p>
         <p>
           <button onClick={timerIsActive ? handleStop : handleStart}>
-            {timerIsActive ? "Stop" : "Start"} Challenge
+            {timerIsActive ? "Stop" : "Start"}{" "}
+            Challenge
           </button>
         </p>
         <p className={timerIsActive ? "active" : undefined}>
